@@ -536,7 +536,7 @@ def write_run_manifest(results_directory: Path, question_count: int, document_co
         "models": {
             "indexing": config.INDEXING_MODEL,
             "answer": config.ANSWER_MODEL,
-            "generation_reasoning_effort": config.GENERATION_REASONING_EFFORT,
+            "generation_temperature": config.GENERATION_TEMPERATURE,
             "embedding": config.EMBEDDING_MODEL,
             "judge": config.JUDGE_MODEL,
             "judge_reasoning_effort": config.JUDGE_REASONING_EFFORT,

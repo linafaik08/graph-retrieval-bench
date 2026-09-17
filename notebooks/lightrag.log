@@ -1,0 +1,23 @@
+2026-09-17 16:29:49,417 - lightrag - WARNING - doc-fbac549dd469-chunk-000: LLM output format error; found 4/5 fields on RELATION `Gamasutra`~`Valve`
+2026-09-17 16:29:49,423 - lightrag - WARNING - doc-fbac549dd469-chunk-000: LLM output format error; found 4/5 fields on RELATION `Valve`~`Steam Trading Cards`
+2026-09-17 16:29:49,427 - lightrag - WARNING - doc-fbac549dd469-chunk-000: LLM output format error; found 4/5 fields on RELATION `Gamasutra`~`Wayback Machine`
+2026-09-17 16:29:49,430 - lightrag - WARNING - doc-fbac549dd469-chunk-000: LLM output format error; found 4/5 fields on RELATION `Gamasutra`~`GDC`
+2026-09-17 16:29:49,435 - lightrag - WARNING - doc-fbac549dd469-chunk-000: LLM output format error; found 4/5 fields on RELATION `Gamasutra`~`IGF`
+2026-09-17 16:29:59,208 - lightrag - WARNING - doc-fbac549dd469-chunk-000: LLM output format error; found 4/5 fields on RELATION `Gamasutra`~`GameCareerGuide`
+2026-09-17 16:29:59,211 - lightrag - WARNING - doc-fbac549dd469-chunk-000: LLM output format error; found 4/5 fields on RELATION `Gamasutra`~`IndieGames`
+2026-09-17 16:29:59,216 - lightrag - WARNING - doc-fbac549dd469-chunk-000: LLM output format error; found 4/5 fields on RELATION `Gamasutra`~`GDC Vault`
+2026-09-17 16:29:59,219 - lightrag - WARNING - doc-fbac549dd469-chunk-000: LLM output format error; found 4/5 fields on RELATION `Gamasutra`~`VRnam`
+2026-09-17 16:29:59,226 - lightrag - WARNING - doc-fbac549dd469-chunk-000: LLM output format error; found 4/5 fields on RELATION `Gamasutra`~`Sanzaru Games Inc.`
+2026-09-17 16:29:59,229 - lightrag - WARNING - doc-fbac549dd469-chunk-000: LLM output format error; found 4/5 fields on RELATION `Gamasutra`~`System Era Softworks`
+2026-09-17 16:29:59,237 - lightrag - WARNING - doc-fbac549dd469-chunk-000: LLM output format error; found 4/5 fields on RELATION `Gamasutra`~`Telltale Games`
+2026-09-17 16:30:17,011 - lightrag - WARNING - doc-ce95ddb63506-chunk-002: LLM output format error; found 4/5 fields on RELATION `Steam`~`Polygon`
+2026-09-17 16:30:17,015 - lightrag - WARNING - doc-ce95ddb63506-chunk-002: LLM output format error; found 4/5 fields on RELATION `Ben Kuchera`~`Polygon`
+2026-09-17 16:30:17,019 - lightrag - WARNING - doc-ce95ddb63506-chunk-002: LLM output format error; found 4/5 fields on RELATION `Dave Tach`~`Polygon`
+2026-09-17 16:30:17,023 - lightrag - WARNING - doc-ce95ddb63506-chunk-002: LLM output format error; found 4/5 fields on RELATION `Griffin McElroy`~`Polygon`
+2026-09-17 16:30:17,025 - lightrag - WARNING - doc-ce95ddb63506-chunk-002: LLM output format error; found 4/5 fields on RELATION `ZeniMax`~`Oculus VR`
+2026-09-17 16:30:17,026 - lightrag - WARNING - doc-ce95ddb63506-chunk-002: LLM output format error; found 4/5 fields on RELATION `Wolfenstein: The New Order`~`Polygon`
+2026-09-17 16:30:17,029 - lightrag - WARNING - doc-ce95ddb63506-chunk-002: LLM output format error; found 4/5 fields on RELATION `Transistor`~`Polygon`
+2026-09-17 16:30:17,031 - lightrag - WARNING - doc-ce95ddb63506-chunk-002: LLM output format error; found 4/5 fields on RELATION `Mario Kart 8`~`Polygon`
+2026-09-17 16:30:18,800 - lightrag - WARNING - doc-ce95ddb63506-chunk-002: LLM output format error; found 4/5 fields on RELATION `Caleb Green`~`Polygon`
+2026-09-17 16:33:41,031 - lightrag - WARNING - low_level_keywords is empty
+2026-09-17 16:33:55,139 - lightrag - WARNING - low_level_keywords is empty

@@ -33,7 +33,7 @@ Three kinds of questions test three abilities:
 4. **GraphRAG global search** (Microsoft): groups entities into Leiden communities, has the LLM summarise each one, then answers by map-reduce over those summaries.
 
 All four share the same fairness rules, set once in `src/config.py`:
-- **Models.** Every system uses `gpt-5.6-luna` for indexing and answers, and `text-embedding-3-small` for embeddings.
+- **Models.** Every system uses `gpt-4o-mini` for indexing and answers, the model of the WildGraphBench and LightRAG papers,, and `text-embedding-3-small` for embeddings.
 - **Chunking.** Chunks are 1,200 tokens with a 100-token overlap.
 - **Retrieval budget.** Each question type gets the same retrieval budget.
 - **Answer format.** Every system is asked for the same answer format.

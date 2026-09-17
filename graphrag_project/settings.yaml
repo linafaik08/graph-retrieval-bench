@@ -7,11 +7,11 @@
 completion_models:
   default_completion_model:
     model_provider: openai
-    model: gpt-5.6-luna                 # [config] INDEXING_MODEL
+    model: gpt-4o-mini                  # [config] INDEXING_MODEL
     auth_method: api_key
     api_key: ${OPENAI_API_KEY}          # read from the project .env
     call_args:
-      reasoning_effort: none            # [config] GENERATION_REASONING_EFFORT
+      temperature: 0                    # [config] GENERATION_TEMPERATURE
     retry:
       type: exponential_backoff
 

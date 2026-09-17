@@ -96,16 +96,16 @@ EXPECTED_QUESTION_COUNTS_BY_DOMAIN: dict[str, dict[str, int]] = {
 # Models
 # --------------------------------------------------------------------------------------------
 # LLM that builds the indexes: entity extraction, description summaries, community reports.
-# The papers use gpt-4o-mini; gpt-5.6-luna is its current low-cost successor.
-INDEXING_MODEL: str = "gpt-5.6-luna"
+# Same model as WildGraphBench and LightRAG, and the cheapest per output token of the candidates.
+INDEXING_MODEL: str = "gpt-4o-mini"
 
 # LLM that writes the final answer, identical for all four systems.
-# Same role as gpt-4o-mini in WildGraphBench, which also shares one generator across systems.
-ANSWER_MODEL: str = "gpt-5.6-luna"
+# WildGraphBench also shares one generator, gpt-4o-mini, across every system it compares.
+ANSWER_MODEL: str = "gpt-4o-mini"
 
-# Reasoning budget for the indexing and answer model ("none" disables hidden reasoning tokens).
-# gpt-4o-mini in the papers had no reasoning step, so "none" keeps the setup comparable.
-GENERATION_REASONING_EFFORT: str = "none"
+# Sampling temperature of the indexing and answer model (0 = most repeatable output).
+# The papers do not report it; 0 limits run-to-run variation. Not supported by reasoning models.
+GENERATION_TEMPERATURE: float = 0.0
 
 # Embedding model for chunks, entities and relations in every system.
 # The papers do not report theirs; text-embedding-3-small is the cheapest OpenAI option.
@@ -154,8 +154,8 @@ TOP_K_CHUNKS_BY_QUESTION_TYPE: dict[str, int] = {
     "summary": 10,
 }
 
-# Style requested from every system for the final answer.
-# "Multiple Paragraphs" is the default of both LightRAG and GraphRAG.
+# Free-text answer format pasted into every answer prompt, e.g. "Single Paragraph", "Bullet Points".
+# "Multiple Paragraphs" is the LightRAG and GraphRAG default; the papers do not report another value.
 RESPONSE_TYPE: str = "Multiple Paragraphs"
 
 # Leiden hierarchy level used by GraphRAG local and global search (0 is the coarsest).

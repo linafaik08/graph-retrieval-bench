@@ -278,17 +278,23 @@ async def create_chat_completion(
     messages: list[dict[str, str]],
     model: str,
     ledger: UsageLedger,
-    reasoning_effort: str,
+    reasoning_effort: str | None = None,
+    temperature: float | None = None,
     response_format: dict[str, Any] | None = None,
     max_completion_tokens: int | None = None,
 ) -> str:
     """Call the OpenAI Chat Completions API and record the usage.
 
+    Optional settings are sent only when given, because each model family accepts a different
+    subset: reasoning models (``gpt-5-mini``) take ``reasoning_effort`` but reject a custom
+    ``temperature``, and older models (``gpt-4o-mini``) do the opposite.
+
     Args:
         messages: Chat messages, each with a ``role`` and a ``content``.
         model: OpenAI model name.
         ledger: Ledger the call is recorded in, under the active ``usage_scope``.
-        reasoning_effort: Reasoning budget of the model, for example ``"none"`` or ``"low"``.
+        reasoning_effort: Reasoning budget of a reasoning model, for example ``"low"``.
+        temperature: Sampling temperature of a non-reasoning model, for example ``0.0``.
         response_format: Optional structured-output setting, for example ``{"type": "json_object"}``.
         max_completion_tokens: Optional cap on output tokens, reasoning included.
 
@@ -296,13 +302,15 @@ async def create_chat_completion(
         The text of the first choice (empty string if the model returned none).
     """
     optional_arguments: dict[str, Any] = {}
+    if reasoning_effort is not None:
+        optional_arguments["reasoning_effort"] = reasoning_effort
+    if temperature is not None:
+        optional_arguments["temperature"] = temperature
     if response_format is not None:
         optional_arguments["response_format"] = response_format
     if max_completion_tokens is not None:
         optional_arguments["max_completion_tokens"] = max_completion_tokens
-    response = await get_openai_client().chat.completions.create(
-        model=model, messages=messages, reasoning_effort=reasoning_effort, **optional_arguments
-    )
+    response = await get_openai_client().chat.completions.create(model=model, messages=messages, **optional_arguments)
     cached_prompt_tokens = 0
     if response.usage.prompt_tokens_details is not None:
         cached_prompt_tokens = response.usage.prompt_tokens_details.cached_tokens or 0
@@ -337,9 +345,7 @@ async def create_embeddings(texts: list[str], model: str, ledger: UsageLedger, b
     return np.vstack(embedding_batches)
 
 
-def build_lightrag_llm_function(
-    ledger: UsageLedger, model: str, reasoning_effort: str
-) -> Callable[..., Awaitable[str]]:
+def build_lightrag_llm_function(ledger: UsageLedger, model: str, temperature: float) -> Callable[..., Awaitable[str]]:
     """Build the ``llm_model_func`` LightRAG calls for extraction, keywords and answers.
 
     LightRAG calls it as ``func(prompt, system_prompt=..., history_messages=..., **kwargs)``.
@@ -349,7 +355,7 @@ def build_lightrag_llm_function(
     Args:
         ledger: Ledger every call is recorded in.
         model: OpenAI model name.
-        reasoning_effort: Reasoning budget of the model.
+        temperature: Sampling temperature of the model.
 
     Returns:
         An async function with the signature LightRAG expects.
@@ -370,7 +376,7 @@ def build_lightrag_llm_function(
             messages=messages,
             model=model,
             ledger=ledger,
-            reasoning_effort=reasoning_effort,
+            temperature=temperature,
             response_format=lightrag_keyword_arguments.get("response_format"),
             max_completion_tokens=lightrag_keyword_arguments.get("max_tokens"),
         )

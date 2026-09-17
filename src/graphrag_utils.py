@@ -23,7 +23,7 @@ from src.config import (
     CHUNK_SIZE_TOKENS,
     EMBEDDING_DIMENSION,
     EMBEDDING_MODEL,
-    GENERATION_REASONING_EFFORT,
+    GENERATION_TEMPERATURE,
     GRAPHRAG_PROJECT_DIRECTORY,
     INDEXING_MODEL,
     MAX_CONCURRENT_LLM_CALLS,
@@ -60,7 +60,7 @@ def load_graphrag_config(corpus_directory: Path, index_directory: Path) -> Graph
         "completion_models": {
             "default_completion_model": {
                 "model": INDEXING_MODEL,
-                "call_args": {"reasoning_effort": GENERATION_REASONING_EFFORT},
+                "call_args": {"temperature": GENERATION_TEMPERATURE},
             }
         },
         "embedding_models": {"default_embedding_model": {"model": EMBEDDING_MODEL}},
