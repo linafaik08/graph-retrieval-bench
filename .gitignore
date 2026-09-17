@@ -1,0 +1,15 @@
+# Environment
+.venv/
+.env
+__pycache__/
+*.egg-info/
+.ipynb_checkpoints/
+.DS_Store
+
+# Downloaded data and run artefacts (indexes, predictions, ledgers)
+data/
+outputs/
+
+# Only full-run results are committed
+results/*/subset/
+.ruff_cache/

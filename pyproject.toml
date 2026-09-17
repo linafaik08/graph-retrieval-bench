@@ -1,0 +1,38 @@
+[project]
+name = "graph-retrieval-bench"
+version = "0.1.0"
+description = "Comparing NaiveRAG, LightRAG and Microsoft GraphRAG on WildGraphBench"
+requires-python = ">=3.11,<3.13"
+dependencies = [
+    # Retrieval frameworks, pinned because their APIs change between releases
+    "lightrag-hku==1.5.7",
+    "graphrag==3.1.2",
+    # LLM access and token counting
+    "openai",
+    "litellm",
+    "tiktoken",
+    # Data
+    "huggingface_hub",
+    "numpy",
+    "pandas",
+    "pyarrow",
+    "networkx",
+    "python-dotenv",
+    "tqdm",
+    # Plotting
+    "plotly",
+    "nbformat>=4.2.0",
+    # Notebooks
+    "jupyter",
+    "ipykernel",
+]
+
+[build-system]
+requires = ["setuptools>=45", "wheel"]
+build-backend = "setuptools.build_meta"
+
+[tool.setuptools]
+packages = ["src"]
+
+[tool.ruff]
+line-length = 120

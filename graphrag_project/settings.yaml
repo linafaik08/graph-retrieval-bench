@@ -1,0 +1,113 @@
+### Microsoft GraphRAG 3.1.2 settings for the benchmark.
+### Generated with `graphrag init`, then trimmed to the sections used here.
+### src/graphrag_utils.py overrides the values marked [config] with those of src/config.py,
+### and sets the folders and prompt paths per run, so subset and full runs never share an index.
+### Full reference: https://microsoft.github.io/graphrag/config/yaml/
+
+completion_models:
+  default_completion_model:
+    model_provider: openai
+    model: gpt-5.6-luna                 # [config] INDEXING_MODEL
+    auth_method: api_key
+    api_key: ${OPENAI_API_KEY}          # read from the project .env
+    call_args:
+      reasoning_effort: none            # [config] GENERATION_REASONING_EFFORT
+    retry:
+      type: exponential_backoff
+
+embedding_models:
+  default_embedding_model:
+    model_provider: openai
+    model: text-embedding-3-small       # [config] EMBEDDING_MODEL
+    auth_method: api_key
+    api_key: ${OPENAI_API_KEY}
+    retry:
+      type: exponential_backoff
+
+concurrent_requests: 8                # [config] MAX_CONCURRENT_LLM_CALLS
+
+### Input and chunking ###
+
+input:
+  type: text
+
+chunking:
+  type: tokens
+  size: 1200                            # [config] CHUNK_SIZE_TOKENS
+  overlap: 100                          # [config] CHUNK_OVERLAP_TOKENS
+  encoding_model: o200k_base            # [config] TOKENIZER_ENCODING
+
+### Storage (base_dir values are overridden per run) ###
+
+input_storage:
+  type: file
+  base_dir: "input"
+
+output_storage:
+  type: file
+  base_dir: "output"
+
+reporting:
+  type: file
+  base_dir: "logs"
+
+cache:
+  type: json
+  storage:
+    type: file
+    base_dir: "cache"
+
+vector_store:
+  type: lancedb
+  db_uri: output/lancedb
+  vector_size: 1536                     # [config] EMBEDDING_DIMENSION (GraphRAG assumes 3072)
+
+### Indexing workflows ###
+
+embed_text:
+  embedding_model_id: default_embedding_model
+
+extract_graph:
+  completion_model_id: default_completion_model
+  prompt: "prompts/extract_graph.txt"
+  entity_types: [organization, person, geo, event]
+  max_gleanings: 1
+
+summarize_descriptions:
+  completion_model_id: default_completion_model
+  prompt: "prompts/summarize_descriptions.txt"
+  max_length: 500
+
+cluster_graph:
+  max_cluster_size: 10
+
+extract_claims:
+  enabled: false
+  completion_model_id: default_completion_model
+  prompt: "prompts/extract_claims.txt"
+  description: "Any claims or facts that could be relevant to information discovery."
+  max_gleanings: 1
+
+community_reports:
+  completion_model_id: default_completion_model
+  graph_prompt: "prompts/community_report_graph.txt"
+  text_prompt: "prompts/community_report_text.txt"
+  max_length: 2000
+  max_input_length: 8000
+
+snapshots:
+  graphml: true                         # lets notebook 04 open the graph with networkx
+  embeddings: false
+
+### Query ###
+
+local_search:
+  completion_model_id: default_completion_model
+  embedding_model_id: default_embedding_model
+  prompt: "prompts/local_search_system_prompt.txt"
+
+global_search:
+  completion_model_id: default_completion_model
+  map_prompt: "prompts/global_search_map_system_prompt.txt"
+  reduce_prompt: "prompts/global_search_reduce_system_prompt.txt"
+  knowledge_prompt: "prompts/global_search_knowledge_system_prompt.txt"
